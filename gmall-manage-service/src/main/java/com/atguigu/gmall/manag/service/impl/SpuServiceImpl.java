@@ -12,8 +12,10 @@ import com.atguigu.gmall.manag.mapper.PmsProductInfoMapper;
 import com.atguigu.gmall.manag.mapper.PmsProductSaleAttrMapper;
 import com.atguigu.gmall.manag.mapper.PmsProductSaleAttrValueMapper;
 import com.atguigu.gmall.service.SpuService;
+
 import java.util.Iterator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -51,8 +53,8 @@ public class SpuServiceImpl implements SpuService {
         if (pmsProductImageList != null && pmsProductImageList.size() > 0) {
             Iterator var4 = pmsProductImageList.iterator();
 
-            while(var4.hasNext()) {
-                PmsProductImage pmsProductImage = (PmsProductImage)var4.next();
+            while (var4.hasNext()) {
+                PmsProductImage pmsProductImage = (PmsProductImage) var4.next();
                 pmsProductImage.setProductId(spuId);
                 this.pmsProductImageMapper.insertSelective(pmsProductImage);
             }
@@ -61,15 +63,15 @@ public class SpuServiceImpl implements SpuService {
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
         Iterator var11 = pmsProductSaleAttrList.iterator();
 
-        while(var11.hasNext()) {
-            PmsProductSaleAttr pmsProductSaleAttr = (PmsProductSaleAttr)var11.next();
+        while (var11.hasNext()) {
+            PmsProductSaleAttr pmsProductSaleAttr = (PmsProductSaleAttr) var11.next();
             pmsProductSaleAttr.setProductId(spuId);
             this.pmsProductSaleAttrMapper.insertSelective(pmsProductSaleAttr);
             List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList = pmsProductSaleAttr.getSpuSaleAttrValueList();
             Iterator var8 = pmsProductSaleAttrValueList.iterator();
 
-            while(var8.hasNext()) {
-                PmsProductSaleAttrValue pmsProductSaleAttrValue = (PmsProductSaleAttrValue)var8.next();
+            while (var8.hasNext()) {
+                PmsProductSaleAttrValue pmsProductSaleAttrValue = (PmsProductSaleAttrValue) var8.next();
                 pmsProductSaleAttrValue.setProductId(spuId);
                 this.pmsProductSaleAttrValueMapper.insertSelective(pmsProductSaleAttrValue);
             }
@@ -83,8 +85,8 @@ public class SpuServiceImpl implements SpuService {
         List<PmsProductSaleAttr> pmsProductSaleAttrList = this.pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
         Iterator var4 = pmsProductSaleAttrList.iterator();
 
-        while(var4.hasNext()) {
-            PmsProductSaleAttr productSaleAttr = (PmsProductSaleAttr)var4.next();
+        while (var4.hasNext()) {
+            PmsProductSaleAttr productSaleAttr = (PmsProductSaleAttr) var4.next();
             PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
             pmsProductSaleAttrValue.setProductId(productId);
             pmsProductSaleAttrValue.setSaleAttrId(productSaleAttr.getSaleAttrId());
@@ -99,6 +101,13 @@ public class SpuServiceImpl implements SpuService {
         PmsProductImage pmsProductImage = new PmsProductImage();
         pmsProductImage.setProductId(productId);
         return this.pmsProductImageMapper.select(pmsProductImage);
+    }
+
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrListBySkuIdAndProductId(String skuId, String productId) {
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductSaleAttrMapper.spuSaleAttrListBySkuIdAndProductId(skuId, productId);
+
+        return pmsProductSaleAttrList;
     }
 }
 
