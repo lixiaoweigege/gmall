@@ -4,10 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.bean.*;
 import com.atguigu.gmall.manag.mapper.*;
 import com.atguigu.gmall.service.SkuService;
-import org.apache.commons.lang3.StringUtils;
-import org.jboss.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 @Service
@@ -57,5 +54,10 @@ public class SkuServiceImpl implements SkuService {
         List<PmsSkuImage> pmsSkuImageList=pmsSkuImageMapper.select(pmsSkuImage);
         pmsSkuInfo.setSkuImageList(pmsSkuImageList);
         return pmsSkuInfo;
+    }
+
+    @Override
+    public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId) {
+        return pmsSkuSaleAttrValueMapper.getSkuSaleAttrValueListBySpu(productId);
     }
 }
