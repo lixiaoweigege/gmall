@@ -1,5 +1,8 @@
 package com.atguigu.gmall.manag;
 
+import com.atguigu.gmall.bean.PmsBaseCatalog1;
+import com.atguigu.gmall.manag.service.impl.CatalogServiceImpl;
+import com.atguigu.gmall.service.CatalogService;
 import com.atguigu.gmall.util.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 import sun.awt.geom.AreaOp;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,6 +32,6 @@ public class GmallManageServiceApplicationTests {
         System.out.println(ping);
         //关闭连接
         jedis.close();
-
     }
+
 }

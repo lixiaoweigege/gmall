@@ -1,6 +1,7 @@
 package com.atguigu.gmall.bean;
 
 import com.atguigu.gmall.bean.PmsBaseCatalog2;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.List;
  * @param
  * @return
  */
+@ToString
 public class PmsBaseCatalog1 implements Serializable {
     @Id
     @Column

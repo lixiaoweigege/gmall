@@ -15,7 +15,6 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GmallManageWebApplicationTests {
-
     @Test
     public void contextLoads() {
     }

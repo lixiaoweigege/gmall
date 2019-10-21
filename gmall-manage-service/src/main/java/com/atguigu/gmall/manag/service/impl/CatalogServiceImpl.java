@@ -38,5 +38,10 @@ public class CatalogServiceImpl implements CatalogService {
         pmsBaseCatalog3.setCatalog2Id(catalog2Id);
         return this.pmsBaseCatalog3Mapper.select(pmsBaseCatalog3);
     }
+
+    @Override
+    public List<PmsBaseCatalog1> getAllCatalogs() {
+        return pmsBaseCatalog1Mapper.getAllCatalogs();
+    }
 }
 

@@ -1,8 +1,10 @@
 package com.atguigu.gmall.bean;
 
+import lombok.ToString;
+
 import javax.persistence.Id;
 import java.io.Serializable;
-
+@ToString
 public class PmsBaseCatalog3 implements Serializable {
 
     @Id

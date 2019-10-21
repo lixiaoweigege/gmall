@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PmsBaseCatalog1Mapper extends Mapper<PmsBaseCatalog1> {
 
+    List<PmsBaseCatalog1> getAllCatalogs();
 }
