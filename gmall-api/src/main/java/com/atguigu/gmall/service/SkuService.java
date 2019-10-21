@@ -7,6 +7,4 @@ public interface SkuService {
    void saveSkuInfo(PmsSkuInfo pmsSkuInfo);
 
     PmsSkuInfo item(String skuId);
-
-    List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId);
 }
