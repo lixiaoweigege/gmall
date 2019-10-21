@@ -55,7 +55,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public PmsSkuInfo item(String skuId) {
-        /*Jedis jedis = redisUtil.getJedis();
+        Jedis jedis = redisUtil.getJedis();
         try {
             String skuInfoJson=jedis.get("skuInfo:"+skuId+":info");
             if(StringUtils.isBlank(skuInfoJson)){
@@ -63,7 +63,7 @@ public class SkuServiceImpl implements SkuService {
                 String uuid = UUID.randomUUID().toString();
                 jedis.set()
             }
-        }*/
+        }
 
         PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(skuId);
         PmsSkuImage pmsSkuImage = new PmsSkuImage();

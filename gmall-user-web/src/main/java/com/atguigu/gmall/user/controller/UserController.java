@@ -17,6 +17,7 @@ public class UserController {
     @ResponseBody
     public UmsMember getUserById(String id) {
         UmsMember user=userService.findUserById(id);
+        //6666
         System.out.println("WEB层");
         return user;
     }
