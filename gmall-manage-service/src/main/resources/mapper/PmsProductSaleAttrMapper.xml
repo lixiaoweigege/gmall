@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.gmall.manag.mapper.PmsProductSaleAttrMapper">
+   <!--  UserBean getUerById(String id);-->
+        <select id="spuSaleAttrListBySkuIdAndProductId" resultMap="spuSaleAttrListBySqlMap">
+        SELECT
+           psa.id as psa_id, psa.*, psav.id as psav_id, psav.*,
+        IF (ssav.sku_id, 1, 0) AS isChecked
+        FROM
+            pms_product_sale_attr psa
+        INNER JOIN pms_product_sale_attr_value psav ON psa.product_id = psav.product_id
+        AND psa.sale_attr_id = psav.sale_attr_id
+        AND psa.product_id = #{spuId}
+        LEFT JOIN pms_sku_sale_attr_value ssav ON psa.sale_attr_id = ssav.sale_attr_id
+        AND psav.id = ssav.sale_attr_value_id
+        AND ssav.sku_id = #{skuId}
+    </select>
+
+        <resultMap id="spuSaleAttrListBySqlMap" type="com.atguigu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
+            <result property="id" column="psa_id"></result>
+            <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.bean.PmsProductSaleAttrValue" autoMapping="true">
+                <result property="id" column="psav_id"></result>
+            </collection>
+        </resultMap>
+
+</mapper>
