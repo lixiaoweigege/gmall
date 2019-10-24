@@ -36,7 +36,7 @@ public class SearchServiceImpl implements SearchService {
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = new ArrayList<>();
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo pmsSearchSkuInfo=hit.source;
-           // 处理高亮显示，如果不做是否存在hightlight的判断，则会报错
+           // 处理高亮显示，如果不做是否存在hightlight的判断，，则会报错
             Map<String, List<String>> highlight = hit.highlight;
             if (highlight!=null&&highlight.size()>0){
                 List<String> list = highlight.get("skuName");
