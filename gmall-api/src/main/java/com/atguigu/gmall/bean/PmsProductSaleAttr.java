@@ -1,6 +1,10 @@
 package com.atguigu.gmall.bean;
 
 import com.atguigu.gmall.bean.PmsProductSaleAttrValue;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -25,11 +29,21 @@ public class PmsProductSaleAttr implements Serializable {
 
     @Transient
     String spuId;
+    @Transient
+    String isChecked;
 
     @Transient
     List<PmsProductSaleAttrValue> spuSaleAttrValueList;
     public String getSpuId() {
         return spuId;
+    }
+
+    public String getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(String isChecked) {
+        this.isChecked = isChecked;
     }
 
     public void setSpuId(String spuId) {

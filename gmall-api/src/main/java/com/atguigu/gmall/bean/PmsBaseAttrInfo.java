@@ -1,5 +1,7 @@
 package com.atguigu.gmall.bean;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
  * @param
  * @return
  */
+@ToString
 public class PmsBaseAttrInfo implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

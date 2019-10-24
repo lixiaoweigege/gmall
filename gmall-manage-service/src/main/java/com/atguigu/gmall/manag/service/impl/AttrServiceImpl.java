@@ -8,6 +8,9 @@ import com.atguigu.gmall.manag.mapper.PmsBaseAttrValueMapper;
 import com.atguigu.gmall.service.AttrService;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -36,5 +39,13 @@ public class AttrServiceImpl implements AttrService {
         }
 
         return pmsBaseAttrInfoList;
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueListByValueIds(Set valueIdSet) {
+        String join = StringUtils.join(valueIdSet, ",");// 将集合改成，用","分割的字符串
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrValueMapper.selectAttrValueListByValueIds(join);
+
+        return pmsBaseAttrInfos;
     }
 }
