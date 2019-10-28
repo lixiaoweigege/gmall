@@ -137,4 +137,12 @@ public class SkuServiceImpl implements SkuService {
         }
         return pmsSkuInfoList;
     }
+
+    @Override
+    public PmsSkuInfo getSkuInfoById(String productSkuId) {
+        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        pmsSkuInfo.setId(productSkuId);
+        PmsSkuInfo pmsSkuInfo1 = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+        return pmsSkuInfo1;
+    }
 }

@@ -6,4 +6,7 @@ gmall-user-manage-web:8081
 gmall-user-manege-service：8071
 gmall-istem-web:8082
 gmall-search-web:8083
-gmall-search-service:7073
+gmall-search-service:8073
+gmall-cart-web:8084
+gmall-cart-service:8074
+

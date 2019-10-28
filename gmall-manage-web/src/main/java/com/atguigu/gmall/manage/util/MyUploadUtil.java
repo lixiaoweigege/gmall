@@ -27,7 +27,7 @@ public class MyUploadUtil {
             e.printStackTrace();
         }
         StorageClient storageClient=new StorageClient(trackerServer,null);
-        String url="http://120.78.175.32";
+        String url="http://112.124.46.249";
         String orginalFilename=multipartFile.getOriginalFilename();
         try {
             byte[] bytes=multipartFile.getBytes();

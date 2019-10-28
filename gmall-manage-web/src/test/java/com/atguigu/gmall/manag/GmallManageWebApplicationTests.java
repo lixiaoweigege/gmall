@@ -25,7 +25,7 @@ public class GmallManageWebApplicationTests {
         TrackerClient trackerClient=new TrackerClient();
         TrackerServer trackerServer=trackerClient.getConnection();
         StorageClient storageClient=new StorageClient(trackerServer,null);
-        String orginalFilename="C:\\Users\\23132\\Desktop\\a.jpg";
+        String orginalFilename="C:\\Users\\23132\\Desktop\\1.jpg";
         String[] upload_file = storageClient.upload_file(orginalFilename, "jpg", null);
         for (int i = 0; i < upload_file.length; i++) {
             String s = upload_file[i];
