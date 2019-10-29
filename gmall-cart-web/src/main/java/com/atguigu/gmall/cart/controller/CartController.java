@@ -2,6 +2,7 @@ package com.atguigu.gmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.atguigu.gmall.anotations.LoginRequired;
 import com.atguigu.gmall.bean.OmsCartItem;
 import com.atguigu.gmall.bean.PmsSkuInfo;
 import com.atguigu.gmall.service.CartService;
@@ -28,6 +29,7 @@ public class CartController {
     CartService cartService;
 
     @RequestMapping("checkCart")
+    @LoginRequired(isNeededSuccess=false)
     public String checkCart(HttpServletRequest request, HttpServletResponse response, OmsCartItem omsCartItem, ModelMap map) {
         String userId = "1";
         List<OmsCartItem> omsCartItems=new ArrayList<>();
@@ -54,6 +56,7 @@ public class CartController {
     }
 
     @RequestMapping("cartList")
+    @LoginRequired(isNeededSuccess=false)
     public String cartList(HttpServletRequest request, HttpServletResponse response, OmsCartItem omsCartItem, ModelMap map) {
         String userId = "1";
         List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -77,6 +80,7 @@ public class CartController {
     }
 
     @RequestMapping("/addToCart")
+    @LoginRequired(isNeededSuccess=false)
     public String addCart(HttpServletRequest request, HttpServletResponse response, OmsCartItem omsCartItem) {
         //根据库存id查询商品的库存信息
         PmsSkuInfo pmsSkuInfo = skuService.getSkuInfoById(omsCartItem.getProductSkuId());
