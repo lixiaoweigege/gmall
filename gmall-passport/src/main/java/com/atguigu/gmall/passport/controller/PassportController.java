@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
 

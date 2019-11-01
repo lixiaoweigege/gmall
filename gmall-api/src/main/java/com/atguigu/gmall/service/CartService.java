@@ -14,4 +14,8 @@ public interface CartService {
     List<OmsCartItem> cartList(String userId);
 
     void updateCartByUserId(OmsCartItem omsCartItem);
+
+    List<OmsCartItem> getCartListByUserId(String userId);
+
+    void delCartList(List<String> delSkuIds, String userId);
 }

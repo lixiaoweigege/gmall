@@ -60,7 +60,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             } else {
                 //验证失败
                 //重新进入认证中心，登录
-                response.sendRedirect("http://passport.gmall.com:9300/index?ReturnUrl=" + request.getRequestURL());
+                response.sendRedirect("http://passport.gmall.com:8085/index?ReturnUrl=" + request.getRequestURL());
                 return false;
             }
         } else {

@@ -1,78 +1,49 @@
 package com.atguigu.gmall.bean;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class UmsMember implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private String memberLevelId;
-    private String username;
-    private String password;
-    private String nickname;
-    private String phone;
-    private int status;
-    private Date createTime;
-    private String icon;
-    private String gender;
-    private Date birthday;
-    private String city;
-    private String job;
-    private String personalizedSignature;
-    private String sourceType;
-    private int integration;
-    private int growth;
-    private int luckeyCount;
-    private int historyIntegration;
-    private String sourceUid;
-    private String accessToken;
-    private String accessCode;
+    String id;
+    String memberLevelId;
+    String username;
+    String password;
+    String nickname;
+    String phone;
+    String status;
+    Date createTime;
+    String icon;
+    String gender;
+    Date birthday;
+    String city;
+    String job;
+    String personalizedSignature;
+    String sourceUid;
+    BigDecimal sourceType;
+    String integration;
+    String growth;
+    String luckeyCount;
 
-    public String getGender() {
-        return gender;
+    public List<UmsMemberReceiveAddress> getUmsMemberReceiveAddresses() {
+        return umsMemberReceiveAddresses;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUmsMemberReceiveAddresses(List<UmsMemberReceiveAddress> umsMemberReceiveAddresses) {
+        this.umsMemberReceiveAddresses = umsMemberReceiveAddresses;
     }
 
-    public String getSourceType() {
-        return sourceType;
-    }
+    String accessToken;
+    String accessCode;
+    BigDecimal historyIntegration;
 
-    public void setSourceType(String sourceType) {
-        this.sourceType = sourceType;
-    }
+    @Transient
+    List<UmsMemberReceiveAddress> umsMemberReceiveAddresses;
 
-    public String getSourceUid() {
-        return sourceUid;
-    }
 
-    public void setSourceUid(String sourceUid) {
-        this.sourceUid = sourceUid;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getAccessCode() {
-        return accessCode;
-    }
-
-    public void setAccessCode(String accessCode) {
-        this.accessCode = accessCode;
-    }
 
     public String getId() {
         return id;
@@ -122,11 +93,11 @@ public class UmsMember implements Serializable{
         this.phone = phone;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -146,6 +117,13 @@ public class UmsMember implements Serializable{
         this.icon = icon;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public Date getBirthday() {
         return birthday;
@@ -179,41 +157,67 @@ public class UmsMember implements Serializable{
         this.personalizedSignature = personalizedSignature;
     }
 
+    public String getSourceUid() {
+        return sourceUid;
+    }
 
-    public int getIntegration() {
+    public void setSourceUid(String sourceUid) {
+        this.sourceUid = sourceUid;
+    }
+
+    public BigDecimal getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(BigDecimal sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public String getIntegration() {
         return integration;
     }
 
-    public void setIntegration(int integration) {
+    public void setIntegration(String integration) {
         this.integration = integration;
     }
 
-    public int getGrowth() {
+    public String getGrowth() {
         return growth;
     }
 
-    public void setGrowth(int growth) {
+    public void setGrowth(String growth) {
         this.growth = growth;
     }
 
-    public int getLuckeyCount() {
+    public String getLuckeyCount() {
         return luckeyCount;
     }
 
-    public void setLuckeyCount(int luckeyCount) {
+    public void setLuckeyCount(String luckeyCount) {
         this.luckeyCount = luckeyCount;
     }
 
-    public int getHistoryIntegration() {
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getAccessCode() {
+        return accessCode;
+    }
+
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+    }
+
+    public BigDecimal getHistoryIntegration() {
         return historyIntegration;
     }
 
-    public void setHistoryIntegration(int historyIntegration) {
+    public void setHistoryIntegration(BigDecimal historyIntegration) {
         this.historyIntegration = historyIntegration;
     }
-
-
-
-
-
 }
