@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -83,32 +84,32 @@ public class SkuServiceImpl implements SkuService {
                         e.printStackTrace();
                     }
                     //将查询到的结果放入缓存
-                    if(pmsSkuInfo!=null){
-                    jedis.set("skuInfo:" + skuId + ":info", JSON.toJSONString(pmsSkuInfo));
-                }
-                //删除分布式锁
+                    if (pmsSkuInfo != null) {
+                        jedis.set("skuInfo:" + skuId + ":info", JSON.toJSONString(pmsSkuInfo));
+                    }
+                    //删除分布式锁
                /* String s = jedis.get("skuInfo:" + skuId + ":lock");
                    if(StringUtils.isNotBlank(s)&&s.equals(uuid)){
                        jedis.del("skuInfo:" + skuId + ":lock");}*/
-                //使用lua脚本语言删除分布式锁
-                String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-                Object eval = jedis.eval(script, Collections.singletonList("skuInfo:" + skuId + ":lock"), Collections.singletonList(uuid));
-            } else {
-                // 自旋
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //使用lua脚本语言删除分布式锁
+                    String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+                    Object eval = jedis.eval(script, Collections.singletonList("skuInfo:" + skuId + ":lock"), Collections.singletonList(uuid));
+                } else {
+                    // 自旋
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return item(skuId);
                 }
-                return item(skuId);
+            } else {
+                // 转化缓存
+                pmsSkuInfo = JSON.parseObject(skuInfoJson, PmsSkuInfo.class);
             }
-        }else {
-            // 转化缓存
-            pmsSkuInfo = JSON.parseObject(skuInfoJson, PmsSkuInfo.class);
+        } finally {
+            jedis.close();
         }
-    }finally {
-        jedis.close();
-    }
         return pmsSkuInfo;
 
         //没有使用缓存之前直接从数据库查询的代码
@@ -140,9 +141,23 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public PmsSkuInfo getSkuInfoById(String productSkuId) {
-        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
         pmsSkuInfo.setId(productSkuId);
         PmsSkuInfo pmsSkuInfo1 = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
         return pmsSkuInfo1;
+    }
+
+    @Override
+    public boolean checkPrice(BigDecimal price, String productSkuId) {
+        boolean b_price = false;
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+        pmsSkuInfo.setId(productSkuId);
+        PmsSkuInfo pmsSkuInfo1 = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+        //bigdecimal比较两个值是否相同的方法，返回0则相同，返回1则不同
+        int i=pmsSkuInfo1.getPrice().compareTo(price);
+        if (i == 0) {
+            b_price=true;
+        }
+        return b_price;
     }
 }

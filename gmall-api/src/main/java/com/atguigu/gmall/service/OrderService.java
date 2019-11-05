@@ -10,4 +10,12 @@ public interface OrderService {
 
 
     void saveOrder(OmsOrder omsOrder);
+
+    OmsOrder getOrderByUserId(String userId, String orderSn);
+
+    OmsOrder getOrderByOrderSn(String orderSn);
+
+    void updateOrder(OmsOrder omsOrder);
+
+    void sendOrderPay(OmsOrder omsOrder);
 }

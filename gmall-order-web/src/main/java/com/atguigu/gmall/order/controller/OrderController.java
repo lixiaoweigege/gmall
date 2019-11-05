@@ -5,6 +5,7 @@ import com.atguigu.gmall.anotations.LoginRequired;
 import com.atguigu.gmall.bean.*;
 import com.atguigu.gmall.service.CartService;
 import com.atguigu.gmall.service.OrderService;
+import com.atguigu.gmall.service.SkuService;
 import com.atguigu.gmall.service.UserService;
 import com.atguigu.gmall.util.PriceUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,8 @@ public class OrderController {
     CartService cartService;
     @Reference
     OrderService orderService;
+    @Reference
+    SkuService skuService;
 
 
     //跳转到结算页面
@@ -76,8 +79,8 @@ public class OrderController {
         if (check) {
             UmsMemberReceiveAddress umsMemberReceiveAddress = userService.getAddressByAddressId(addressId);
             List<OmsCartItem> cartListByUserId = cartService.getCartListByUserId(userId);
-        //封装订单信息,包括收货地址、联系方式等
-            OmsOrder omsOrder=new OmsOrder();
+            //封装订单信息,包括收货地址、联系方式等
+            OmsOrder omsOrder = new OmsOrder();
             omsOrder.setStatus("0");
             String orderSn = "gmall0615order";
             SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
@@ -94,8 +97,8 @@ public class OrderController {
             omsOrder.setReceiverProvince(umsMemberReceiveAddress.getProvince());
             omsOrder.setReceiverRegion(umsMemberReceiveAddress.getRegion());
             //三天后到货
-            Calendar calendar=Calendar.getInstance();
-            calendar.add(Calendar.DATE,3);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 3);
             Date time = calendar.getTime();
             omsOrder.setReceiveTime(time);
             omsOrder.setCreateTime(new Date());
@@ -108,8 +111,11 @@ public class OrderController {
             List<String> delSkuIds = new ArrayList<>();
             for (OmsCartItem omsCartItem : cartListByUserId) {
                 // 生成订单详情，主要是商品信息
-                if(omsCartItem.getIsChecked().equals("1")){
-                    OmsOrderItem omsOrderItem = new OmsOrderItem();
+                if (omsCartItem.getIsChecked().equals("1")) {
+                    //当要生成订单时，还需要再次确定该商品当前价格是否与数据库中的一致,不一致则支付失败
+                    boolean b_price = skuService.checkPrice(omsCartItem.getPrice(),omsCartItem.getProductSkuId());
+                    if (b_price==false){ return "tradeFail";}
+                            OmsOrderItem omsOrderItem = new OmsOrderItem();
                     omsOrderItem.setProductId(omsCartItem.getProductId());
                     omsOrderItem.setProductSkuId(omsCartItem.getProductSkuId());
                     omsOrderItem.setProductCategoryId(omsCartItem.getProductCategoryId());
@@ -125,9 +131,9 @@ public class OrderController {
             omsOrder.setOmsOrderItems(omsOrderItems);
             orderService.saveOrder(omsOrder);
             //删除购物车数据
-            cartService.delCartList(delSkuIds,userId);
+            cartService.delCartList(delSkuIds, userId);
             // 重定向到支付系统
-            return "redirect:http://payment.gmall.com:8087/index";
+            return "redirect:http://payment.gmall.com:8087/index?orderSn="+orderSn;
         }
         return "tradeFail";
     }

@@ -95,8 +95,8 @@ public class PassportController {
         UmsMember umsMember = userService.verifyToken(token);
         if (umsMember != null) {
             // 获取用户信息
-            resultMap.put("userId", "1");
-            resultMap.put("nickName", "tom");
+            resultMap.put("userId", umsMember.getId());
+            resultMap.put("nickName",umsMember.getNickname());
             resultMap.put("success", "success");
         }else {
             resultMap.put("fail","fail");
